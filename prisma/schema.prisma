@@ -25,6 +25,7 @@ model User {
   updateAt    DateTime @updatedAt
   posts       Post[]
   
+  @@map("users") // Mapeia a tabela "users" no banco de dados para o modelo User
 }
 
  model Post {
@@ -32,6 +33,8 @@ model User {
   title       String
   sbtitle     String?
   content     String
-  userId      Int
+  userId      Int @map("user_id") // Mapeia a coluna "user_id" no banco de dados para o campo userId
   user        User     @relation(fields: [userId], references: [id])
+
+  @@map ("posts") // Mapeia a tabela "posts" no banco de dados para o modelo Post
 }
