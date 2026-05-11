@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import { createUser } from '../services/user';
+import { prisma } from '../libs/prisma';
+import { createUser, createUsers } from '../services/user';
+
 
 export const mainRouter = Router();
 
@@ -17,5 +19,18 @@ mainRouter.post('/user', async (req, res) => {
     } else {
         res.status(400).json({ error: "Email already exists" });
     }
-    res.json(user);
-});
+})
+
+mainRouter.post('/users', async (req, res) => {
+    const result = await createUsers([
+        {name: 'Alice Smith', email: 'alice.smith@exemple.com' },
+        {name: 'Bob Johnson', email: 'bob.johnson@exemple.com' },
+        {name: 'Charlie Brown', email: 'charlie.brown@exemple.com' },
+        {name: 'David Wilson', email: 'david;wilson@exemple.com' },
+    ])
+    if (result) {
+        res.status(201).json({ ok: true})
+    } else {
+        res.status(400).json({ error: "Error creating users" })
+    }
+})
