@@ -36,5 +36,5 @@ model User {
   userId      Int @map("user_id") // Mapeia a coluna "user_id" no banco de dados para o campo userId
   user        User     @relation(fields: [userId], references: [id])
 
-  @@map ("posts") // Mapeia a tabela "posts" no banco de dados para o modelo Post
+  @@map ("posts") // Mapeia a tabela "posts" no banco de dados
 }
