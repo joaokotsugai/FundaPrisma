@@ -1,7 +1,10 @@
 import { Router } from 'express';
-import { prisma } from '../libs/prisma';
-import { createUser, createUsers, getAllUsers } from '../services/user';
-import { get } from 'http';
+import { 
+    createUser, 
+    createUsers, 
+    getAllUsers, 
+    getUserByEmail 
+} from '../services/user';
 
 
 
@@ -51,3 +54,12 @@ mainRouter.get('/users' , async (req, res) => {
         res.status(500).json({ error: "Error fetching users" })
     }
 })
+
+mainRouter.get('/user', async (req, res) => {
+    const user = await getUserByEmail('charlie.brown@exemple.com')
+    if (user) {
+        res.json({ user })
+    } else {
+        res.status(404).json({ error: "User not found" })
+    }
+}) 
